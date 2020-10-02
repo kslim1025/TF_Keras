@@ -89,4 +89,45 @@ plt.show()
 
 텐서플로 허브에 올라와 있는 모델은 hub.KerasLayer()명령으로 tf.keras에서 사용 가능한 레이어로 변환 할 수 있습니다.
 
+# Kaggle
+
+캐글은 2010년에 설립된 예측 모델 및 분석 대회를 위한 플랫폼으로 2017년에 구글에 인수됬습니다.
+초기에는 전통적인 머신러닝 기법으로 풀 수 있는 테이블 데이터 위주의 문제들이 많았지만 딥러닝의 발전으로 이미지, 음성, 자연어, 동영상 등 다양한 데이터에 대한 문제들이 올라고있습니다.
+
+제공하는파이썬 API를 사용하면 손쉽게 데이터를 받고 학습 결과를 캐글에 올리 수 있습니다.
+캐글 API를 내려받기 위해서는 셀에서 다음과 같은 짧은 명령어를 실행하면 됩니다.
+
+# !pip install kaggle
+
+설치가 끝나면 API를 사용하기 위해 새로운 API Token을 생성해야합니다. 캐글 홈페이지로 이동한 계정이 있는 경우 우측 상단의 본인 프로필 사진을 누르면 My Account 메뉴로 진입할 수 있습니다.
+
+My Account 메뉴 페이지의 중간쯤에 있는 API 메뉴의 "Create New API Token" 버튼을 눌러서 새로운 API Token을 생성합니다.
+
+import os
+
+os.environ['KAGGLE_USERNAME'] = 'user_id' #독자의 캐글 ID
+os.environ['KAGGLE_KEY'] = 'user_api_token' #독자의 캐글 API Token
+!kaggle competitions download -c dog-breed-identification
+!unzip train.zip
+!unzip labels.csv.zip
+
+import pandas as pd
+label_text = pd.read_csv('label_csv')
+print(label_text.head())
+
+label_text.info()
+
+
+label_text.info()
+
+label_text['bread'].nunique()
+
+plt.figure(figsize=(12,12))
+for c in range(9):
+  image_id = label_text.loc[c, 'id']
+  plt.subplot(3, 3, c+1)
+  plt.imshow(plt.imread('/content/train/' + image_id + '.jpg'))
+  plt.title(str(c) + ', ' + label_text.loc[c, 'breed'])
+  plt.axis('off')
+plt.show()
 
