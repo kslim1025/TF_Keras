@@ -22,11 +22,34 @@ model = tf.keras.Sequential([
 
 model.summary()
 
-#MobileNet 이란?
+# MobileNet 이란?
 
 MobileNet은 계산 부담이 큰 컨볼루션 신경망을 연산 성능이 제한적인 모바일 환경에서도 작동 가능하도록 네트워크 구조를 경량화한것입니다.
 MobileNet 버전2는 1을 개선했고 파라미터 수도 더 줄어들었습니다.
 
+MobileNet은 ImageNet에 존재하는 1,000 종류의 이미지를 분류할 수 있으며, 이 가운데 어떤것에도 속하지 않는다고 판단될 때는 background에 해당 하는 인덱스 0을 반환합니다. 이미지의 분류는 수량(cock)과 암탉(hen)을 분류할 정도로 상세하고 화장지(toilet tissue)같은 사물도 포함되어있다.
+
+MobileNet의 성능을 평가하기 위해 이미지를 학습시켰을 때 얼마나 적합한 라벨로 분류하는지 알아보겠습니다.
+ImageNet의 데이터 주 ㅇ일부만 모아놓은 ImageNetV2를 사용하겠습니다. ImageNetV2는 아마존 매커니컬 터크를 이용해 다수의 참가자에게서 클래스 예측값을 받아서 선별한 데이터입니다. 여기서는 각클래스에서 가장 많은 선택을 받은 이미지 10장씩 모아놓은 10,000장의 이미지가 포함된 TopImages 데이터를 사용하겠습니다.
+
+# imageNetV2-TopImages 불러오기
+
+import os
+import pathlib
+
+content_data_url = '/content/sample_data'
+data_root_orig = tf.keras.utils.get_file('imagenetV2', 'https://s3-us-west-2.amazonaws.com/imagenetv2public/imagenetv2-topimages.tar.gz', cache_dir=content_data_url, extract=True)
+data_root= pathlib.Path(content_data_url + '/datasets/imagenetv2-topimages')
+print(data_root)
+
+# 디렉터리 출력
+for idx, item in enumerate(data_root.iterdir()):
+  print(item)
+  if idx == 9:
+    break
+
 # 텐서플로 허브 모델 사용법
 
 텐서플로 허브에 올라와 있는 모델은 hub.KerasLayer()명령으로 tf.keras에서 사용 가능한 레이어로 변환 할 수 있습니다.
+
+
