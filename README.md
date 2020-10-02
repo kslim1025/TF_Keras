@@ -48,6 +48,43 @@ for idx, item in enumerate(data_root.iterdir()):
   if idx == 9:
     break
 
+# ImageNet 라벨 텍스트 불러오기
+
+label_file = tf.keras.utils.get_file('label', 'https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt')
+
+label_text = None
+with open(label_file, 'r') as f:
+  label_text = f.read().split('\n')[:-1]
+print(len(label_Text))
+print(label_text[:10])
+print(label_text[-10:])
+
+# 이미지 확인
+
+import PIL.Image as Image
+import matplotlib.pyplot as plt
+import random
+
+all_image_paths = list(data_root.glob('*/*'))
+all_image_paths = [str(path) for path in all_image_paths]
+
+#이미지를 랜덤하게 섞습니다
+random.shuffle(all_image_paths)
+
+image_count = len(all_image_paths)
+print('image_count', image_count)
+
+plt.figure(figsize=(12, 12))
+
+for c in range(9):
+  image_path = random.chice(all_image_paths)
+  plt.subplot(3,3,c+1)
+  plt.imshow(plt.imread(image_path))
+  idx = int(image_path.split('/')[-2]) + 1
+  plt.title(str(idx) + ', ' + label_text[idx])
+  plt.axis('off')
+plt.show()
+
 # 텐서플로 허브 모델 사용법
 
 텐서플로 허브에 올라와 있는 모델은 hub.KerasLayer()명령으로 tf.keras에서 사용 가능한 레이어로 변환 할 수 있습니다.
