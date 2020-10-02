@@ -5,12 +5,12 @@
 
 다행스러운 점은 회사에서 일을 진행할떄는 연구자들이 자신이 만든 사전 훈련된 모델을 인터넷에 올려놓아 다른사람들이 사용할 수 있도록 해줍니다 이렇게 얻은 모델을 그대로 사용할 수 도 있고 전이학습이나 신경스타일 전이처럼 다른 과제를 위해 재가공해서 사용 할 수 도 있습니다.
 
-#텐서플로 허브
+# 텐서플로 허브
 
 여기서 주로 사용하는 라이브러리인 텐서플로에서 제공하는 텐서플로 허브(TensorFlow Hub)는 재사용 가능한 모델을 쉽게 이용할 수 있는 라이브러리입니다.
 텐서플로 허브 홈페이지에서는 이미지, 텍스트, 비디오 등의 분야에서 사전 훈련된 모델들을 검색가능합니다.
 
-#텐서플로 2.0을 이용한 턴서플로 허브 불러오는 방법
+# 텐서플로 2.0을 이용한 턴서플로 허브 불러오는 방법
 
 1. 텐서플로 허브에서 사전 훈련된 MobileNet 모델 불러오기
 import tensorflow_hub as hub
@@ -19,4 +19,14 @@ mobile_net_url = "https://tfhub.dev/google/tf2-preview/mobilenet_v2/classificati
 model = tf.keras.Sequential([
   hub.kerasLyaer(handle = mobile_net_url, input_shape=(224,224,3), trainable=False)
 ])
+
 model.summary()
+
+#MobileNet 이란?
+
+MobileNet은 계산 부담이 큰 컨볼루션 신경망을 연산 성능이 제한적인 모바일 환경에서도 작동 가능하도록 네트워크 구조를 경량화한것입니다.
+MobileNet 버전2는 1을 개선했고 파라미터 수도 더 줄어들었습니다.
+
+# 텐서플로 허브 모델 사용법
+
+텐서플로 허브에 올라와 있는 모델은 hub.KerasLayer()명령으로 tf.keras에서 사용 가능한 레이어로 변환 할 수 있습니다.
